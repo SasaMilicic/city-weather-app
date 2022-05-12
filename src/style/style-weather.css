@@ -2,3 +2,14 @@
   background-color: aqua;
   font-size: 30px;
 }
+
+main {
+  display: flex;
+  justify-content: space-around;
+}
+
+article {
+  background-color: aqua;
+  padding: 30px;
+  border-radius: 20px;
+}

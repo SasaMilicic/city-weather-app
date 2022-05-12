@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { getCityWeather } from '../data/fetch-data';
 import '../style/style-form.css';
 
-function Form() {
+function Form({ setArrCities }) {
   let [input, setInput] = useState('');
-  const [arrCities, setArrCities] = useState([]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     setArrCities(input.split(','));
     setInput('');
   };
-
-  useEffect(() => {
-    getCityWeather(arrCities);
-  }, [arrCities]);
 
   const onChange = (e) => setInput(e.target.value);
 
