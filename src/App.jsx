@@ -6,7 +6,7 @@ import Weather from './components/Weather';
 
 function App() {
   useEffect(() => {
-    getCityWeather('Backo Dobro Polje');
+    getCityWeather(['BaCko DobRo PoLje', 'vrBaS', 'KUla']);
   }, []);
 
   return (
