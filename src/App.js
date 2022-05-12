@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const getCityWeather = async (city) => {
+    const fetchCityWeather = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_WEATHER_KEY}`
+    );
+
+    const data = await fetchCityWeather.json();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    getCityWeather('Backo Dobro Polje');
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello WORLD!</h1>
     </div>
   );
 }
