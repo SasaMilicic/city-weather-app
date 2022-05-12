@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import './App.css';
+import './style/style-app.css';
 import { getCityWeather } from './data/fetch-data';
+import Form from './components/Form';
+import Weather from './components/Weather';
 
 function App() {
   useEffect(() => {
@@ -8,8 +10,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Hello WORLD!</h1>
+    <div className="style-app">
+      <h1>Current Weather</h1>
+      <Form />
+      <Weather />
     </div>
   );
 }
