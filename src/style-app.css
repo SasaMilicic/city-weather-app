@@ -64,6 +64,7 @@ svg {
   background-color: white;
   border-radius: 10px;
   border: 1px solid black;
+  cursor: pointer;
 }
 
 ul {
@@ -80,4 +81,9 @@ p {
   display: flex;
   gap: 10px;
   justify-content: space-evenly;
+}
+
+.style-error {
+  color: red;
+  font-weight: 900;
 }

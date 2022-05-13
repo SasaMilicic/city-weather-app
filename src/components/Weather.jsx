@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Weather({ cities }) {
-  /* proba */
   const renderCity = ({ id, name, sys: { country }, main: { temp } }) => (
     <article key={id}>
       <h2>
@@ -10,11 +9,16 @@ function Weather({ cities }) {
     </article>
   );
 
+  const checkRenderElements = (city) => {
+    if (city.error) return;
+    return renderCity(city);
+  };
+
   return (
     <div className="style-output">
-      {/* {cities.map((city) => {
-        return renderCity(city);
-      })} */}
+      {cities.map((city) => {
+        return checkRenderElements(city);
+      })}
     </div>
   );
 }

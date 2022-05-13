@@ -13,14 +13,16 @@ function ListCities({ cities, setCities }) {
     </p>
   );
 
-  const renderErrorMessage = ({ error }) => <p>{error}</p>;
+  const renderErrorMessage = ({ error, id }) => (
+    <p className="style-error">
+      {error} <CloseBtn onClick={() => handleArticle(id)} />
+    </p>
+  );
 
-  const check = (city) => {
+  const checkRenderElements = (city) => {
     if (city.error) {
-      console.log(city);
       return renderErrorMessage(city);
     }
-
     return renderCityElement(city);
   };
 
@@ -28,7 +30,7 @@ function ListCities({ cities, setCities }) {
     <ul>
       <h2>Search box</h2>
       {cities.map((city) => {
-        return <li key={city.id}> {check(city)}</li>;
+        return <li key={city.id}> {checkRenderElements(city)}</li>;
       })}
     </ul>
   );

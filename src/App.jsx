@@ -4,6 +4,8 @@ import Form from './components/Form';
 import Weather from './components/Weather';
 import ListCities from './components/ListCities';
 
+const getRandomInteger = () => Math.floor(100000 + Math.random() * 900000);
+
 function App() {
   const [cities, setCities] = useState([]);
   const [arrCities, setArrCities] = useState([]);
@@ -17,16 +19,15 @@ function App() {
         );
         if (!fetchCityWeather.ok) {
           return {
-            error: 'City was not found',
+            error: `'${fetchCityWeather.url.slice(50, -39)}' not found!`,
+            id: getRandomInteger(),
           };
         }
         const data = await fetchCityWeather.json();
-        // console.log(data);
         return data;
       })
     );
     setCities(arrCitiesData);
-    // console.log(arrCitiesData);
   };
 
   useEffect(() => {
