@@ -1,8 +1,8 @@
-import './style-app.css';
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import Weather from './components/Weather';
 import ListCities from './components/ListCities';
+import './style-app.css';
 
 const getRandomInteger = () => Math.floor(100000 + Math.random() * 900000);
 
@@ -40,7 +40,7 @@ function App() {
         <h1>Current Weather</h1>
         <p className="style-error">
           For more cities,
-          <br /> separate with a comma!
+          <br /> separate with comma!
         </p>
         <Form setArrCities={setArrCities} />
       </header>
