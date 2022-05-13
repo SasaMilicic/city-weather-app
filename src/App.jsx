@@ -30,7 +30,7 @@ function App() {
     <div className="style-app">
       <h1>Current Weather</h1>
       <Form setArrCities={setArrCities} />
-      <Weather cities={cities} />
+      <Weather setCities={setCities} cities={cities} />
     </div>
   );
 }
