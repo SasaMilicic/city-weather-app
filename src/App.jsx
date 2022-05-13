@@ -1,7 +1,8 @@
-import './style/style-app.css';
+import './style-app.css';
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import Weather from './components/Weather';
+import ListCities from './components/ListCities';
 
 function App() {
   const [cities, setCities] = useState([]);
@@ -28,9 +29,19 @@ function App() {
 
   return (
     <div className="style-app">
-      <h1>Current Weather</h1>
-      <Form setArrCities={setArrCities} />
-      <Weather setCities={setCities} cities={cities} />
+      <header>
+        <h1>Current Weather</h1>
+        <Form setArrCities={setArrCities} />
+      </header>
+
+      <main>
+        <section>
+          <Weather cities={cities} />
+        </section>
+        <aside>
+          <ListCities setCities={setCities} cities={cities} />
+        </aside>
+      </main>
     </div>
   );
 }

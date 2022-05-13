@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../style/style-form.css';
 
 function Form({ setArrCities }) {
   let [input, setInput] = useState('');
@@ -13,7 +12,7 @@ function Form({ setArrCities }) {
   const onChange = (e) => setInput(e.target.value);
 
   return (
-    <form onSubmit={onSubmit} className="style-form">
+    <form onSubmit={onSubmit}>
       <input
         type="text"
         placeholder="Enter cities..."

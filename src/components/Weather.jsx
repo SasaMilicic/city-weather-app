@@ -1,18 +1,8 @@
 import React from 'react';
-import '../style/style-weather.css';
 
-function Weather({ cities, setCities }) {
-  console.log(cities);
-  const handleArticle = (id) => {
-    setCities((cities) => cities.filter((el) => el.id !== id));
-
-    // cities.forEach((el) => {
-    //   el.id === id ? console.log('jeste') : console.log('nije');
-    // });
-    console.log(id);
-  };
+function Weather({ cities }) {
   return (
-    <main>
+    <div className="style-output">
       {cities.map((city) => {
         const {
           id,
@@ -21,16 +11,15 @@ function Weather({ cities, setCities }) {
           main: { temp },
         } = city;
         return (
-          <article onClick={() => handleArticle(id)} key={id}>
+          <article key={id}>
             <h2>
               {name} ( {country} ) {temp}
             </h2>
           </article>
         );
       })}
-    </main>
+    </div>
   );
 }
 
 export default Weather;
-// { id, name, sys: { country }, main: { temp } }
