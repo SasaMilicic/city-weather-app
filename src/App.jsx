@@ -38,6 +38,10 @@ function App() {
     <div className="style-app">
       <header>
         <h1>Current Weather</h1>
+        <p className="style-error">
+          For more cities,
+          <br /> separate with a comma!
+        </p>
         <Form setArrCities={setArrCities} />
       </header>
 

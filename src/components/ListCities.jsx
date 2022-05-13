@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as CloseBtn } from './closeIcon.svg';
+import { ReactComponent as CloseBtn } from './svg/closeIcon.svg';
 
 function ListCities({ cities, setCities }) {
   const handleArticle = (id) => {

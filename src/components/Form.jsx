@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { ReactComponent as SearchIcon } from './svg/searchIcon.svg';
 
 function Form({ setArrCities }) {
   let [input, setInput] = useState('');
@@ -14,7 +15,7 @@ function Form({ setArrCities }) {
   return (
     <form onSubmit={onSubmit}>
       <input
-        type="text"
+        type="search"
         placeholder="Enter cities..."
         onChange={onChange}
         value={input}
