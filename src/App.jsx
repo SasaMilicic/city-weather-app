@@ -7,6 +7,7 @@ import ListCities from './components/ListCities';
 function App() {
   const [cities, setCities] = useState([]);
   const [arrCities, setArrCities] = useState([]);
+  console.log(cities);
 
   const getCityWeather = async (arrCities) => {
     const arrCitiesData = await Promise.all(
@@ -14,6 +15,11 @@ function App() {
         const fetchCityWeather = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_WEATHER_KEY}`
         );
+        if (!fetchCityWeather.ok) {
+          return {
+            error: 'City was not found',
+          };
+        }
         const data = await fetchCityWeather.json();
         // console.log(data);
         return data;
