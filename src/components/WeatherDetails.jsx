@@ -10,45 +10,61 @@ import { ReactComponent as PressureIcon } from '../svg/pressureIcon.svg';
 
 const convertKtoC = (kelvin) => Math.round(kelvin - 273.15);
 
-const renderCity = ({
-  id,
-  name,
-  main: { temp, temp_max, temp_min, feels_like, humidity, pressure },
-  wind: { speed },
-}) => (
-  <article key={id}>
-    <h2>
-      <CurrentTempIcon /> {convertKtoC(temp)}°C
-    </h2>
-    <h4> {name} </h4>
+const renderCity = (city, flag) => {
+  const {
+    id,
+    name,
+    main: { temp, temp_max, temp_min, feels_like, humidity, pressure },
+    wind: { speed },
+  } = city;
 
-    <p>
-      <span>
-        <HighTempIcon />/<LowTempIcon />
-      </span>
-      <span>
-        {convertKtoC(temp_max)}°/{convertKtoC(temp_min)}°C
-      </span>
-    </p>
-    <p>
-      <FeelsLikeIcon /> <span> {convertKtoC(feels_like)}°C </span>
-    </p>
-    <p>
-      <HumidityIcon /> <span> {humidity}% </span>
-    </p>
-    <p>
-      <PressureIcon /> <span> {pressure}mb </span>
-    </p>
-    <p>
-      <WindIcon /> <span>{speed} km/h </span>
-    </p>
-  </article>
-);
+  return (
+    <article key={id}>
+      <h3>
+        {name} <img src={flag} alt={''} />
+      </h3>
+      <h2>
+        <CurrentTempIcon /> {convertKtoC(temp)}°C
+      </h2>
 
-function WeatherDetails({ cities }) {
+      <p>
+        <span>
+          <HighTempIcon />/<LowTempIcon />
+        </span>
+        <span>
+          {convertKtoC(temp_max)}°/{convertKtoC(temp_min)}°C
+        </span>
+      </p>
+      <p>
+        <FeelsLikeIcon /> <span> {convertKtoC(feels_like)}°C </span>
+      </p>
+      <p>
+        <HumidityIcon /> <span> {humidity}% </span>
+      </p>
+      <p>
+        <PressureIcon /> <span> {pressure} mb </span>
+      </p>
+      <p>
+        <WindIcon /> <span>{speed} km/h </span>
+      </p>
+    </article>
+  );
+};
+
+function WeatherDetails({ cities, flags }) {
   return (
     <StWeatherDetails>
-      {cities.map((city) => (city.error ? '' : renderCity(city)))}
+      {cities.map((city) => {
+        if (city.error) return;
+
+        if (flags.length > 0) {
+          const flag = flags.filter(
+            (flag) => flag.slice(-2) === city.sys.country
+          );
+
+          return renderCity(city, flag[0]);
+        }
+      })}
     </StWeatherDetails>
   );
 }

@@ -24,13 +24,24 @@ export const StWeatherDetails = styled.div`
     border-radius: 20px;
     height: auto;
     padding: 5px;
+    position: relative;
+  }
+
+  h3 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
   }
 
   h2 {
-    margin-bottom: 0;
+    margin: 0 0 10px 0;
+    align-items: center;
   }
 
-  h4 {
-    margin-top: 0;
+  img {
+    height: 40px;
+    width: auto;
+    opacity: 0.5;
   }
 `;

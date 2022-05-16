@@ -4,7 +4,19 @@ const url = (el) => {
 
 const getRandomInteger = () => Math.floor(100000 + Math.random() * 900000);
 
-export const getCityWeather = async (arrCities, setArr) => {
+const getFlags = async (arrCities, Sflags) => {
+  const flags = await Promise.all(
+    arrCities.map(async (city) => {
+      const fetchCityWeather = await fetch(
+        `https://countryflagsapi.com/svg/${city}`
+      );
+      return fetchCityWeather.url;
+    })
+  );
+  Sflags(flags);
+};
+
+export const getCityWeather = async (arrCities, setArr, setFlags) => {
   if (arrCities.length > 10) arrCities = arrCities.slice(0, 10);
 
   const arrCitiesData = await Promise.all(
@@ -19,5 +31,11 @@ export const getCityWeather = async (arrCities, setArr) => {
       return await fetchCityWeather.json();
     })
   );
+
+  const flagIndent = arrCitiesData.map((el) => {
+    if (el.error) return;
+    return el.sys.country;
+  });
+  getFlags(flagIndent, setFlags);
   setArr(arrCitiesData);
 };

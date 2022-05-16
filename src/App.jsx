@@ -7,11 +7,11 @@ import { getCityWeather } from './api/api';
 
 function App() {
   const [cities, setCities] = useState([]);
-  const [arrCities, setArrCities] = useState(['Beograd']);
-  console.log(cities);
+  const [arrCities, setArrCities] = useState(['Backo Dobro Polje']);
+  const [flags, setFlags] = useState([]);
 
   useEffect(() => {
-    getCityWeather(arrCities, setCities);
+    getCityWeather(arrCities, setCities, setFlags);
   }, [arrCities]);
 
   return (
@@ -20,7 +20,7 @@ function App() {
       <StApp>
         <Header setArrCities={setArrCities} />
         <main>
-          <WeatherDetails cities={cities} />
+          <WeatherDetails cities={cities} flags={flags} />
           <SearchBox setCities={setCities} cities={cities} />
         </main>
       </StApp>
