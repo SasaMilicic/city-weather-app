@@ -5,6 +5,8 @@ const url = (el) => {
 const getRandomInteger = () => Math.floor(100000 + Math.random() * 900000);
 
 export const getCityWeather = async (arrCities, setArr) => {
+  if (arrCities.length > 10) arrCities = arrCities.slice(0, 10);
+
   const arrCitiesData = await Promise.all(
     arrCities.map(async (city) => {
       const fetchCityWeather = await fetch(url(city));
