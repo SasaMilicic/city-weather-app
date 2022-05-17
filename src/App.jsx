@@ -3,7 +3,7 @@ import WeatherDetails from './components/WeatherDetails';
 import { StApp, GlobalStyle } from './style-app';
 import SearchBox from './components/SearchBox';
 import Header from './components/Header';
-import { getCityWeather } from './api/api';
+import { getCitiesWeather } from './api/api';
 
 function App() {
   const [cities, setCities] = useState([]);
@@ -11,7 +11,7 @@ function App() {
   const [flags, setFlags] = useState([]);
 
   useEffect(() => {
-    getCityWeather(arrCities, setCities, setFlags);
+    getCitiesWeather(arrCities, setCities, setFlags);
   }, [arrCities]);
 
   return (

@@ -1,41 +1,65 @@
-const url = (el) => {
-  return `https://api.openweathermap.org/data/2.5/weather?q=${el}&appid=${process.env.REACT_APP_WEATHER_KEY}`;
-};
-
-const getRandomInteger = () => Math.floor(100000 + Math.random() * 900000);
-
 const getFlags = async (arrCities, Sflags) => {
   const flags = await Promise.all(
     arrCities.map(async (city) => {
-      const fetchCityWeather = await fetch(
-        `https://countryflagsapi.com/svg/${city}`
-      );
+      const fetchCityWeather = await fetch(FLAGS_URL(city));
       return fetchCityWeather.url;
     })
   );
   Sflags(flags);
 };
 
-export const getCityWeather = async (arrCities, setArr, setFlags) => {
+const FLAGS_URL = (countryInitial) => {
+  return `https://countryflagsapi.com/svg/${countryInitial}`;
+};
+
+const WEATHER_URL = (el) => {
+  return `https://api.openweathermap.org/data/2.5/weather?q=${el}&appid=${process.env.REACT_APP_WEATHER_KEY}`;
+};
+
+const getRandomInteger = () => Math.floor(100000 + Math.random() * 900000);
+
+const getCountryInitials = (countries) =>
+  countries.map((el) => {
+    if (el.error) return;
+
+    return el.sys.country;
+  });
+
+const getCityWeather = async (city) => {
+  const weather = await fetch(WEATHER_URL(city));
+  if (!weather.ok) {
+    return {
+      error: `'${weather.url.slice(50, -39)}' not found!`,
+      id: getRandomInteger(),
+    };
+  }
+
+  return await weather.json();
+};
+
+export const getCitiesWeather = async (arrCities, setArr, setFlags) => {
   if (arrCities.length > 10) arrCities = arrCities.slice(0, 10);
 
   const arrCitiesData = await Promise.all(
-    arrCities.map(async (city) => {
-      const fetchCityWeather = await fetch(url(city));
-      if (!fetchCityWeather.ok) {
-        return {
-          error: `'${fetchCityWeather.url.slice(50, -39)}' not found!`,
-          id: getRandomInteger(),
-        };
-      }
-      return await fetchCityWeather.json();
-    })
+    arrCities.map(async (city) => getCityWeather(city))
   );
 
-  const flagIndent = arrCitiesData.map((el) => {
-    if (el.error) return;
-    return el.sys.country;
-  });
-  getFlags(flagIndent, setFlags);
+  const countryInitials = getCountryInitials(arrCitiesData);
+  getFlags(countryInitials, setFlags);
   setArr(arrCitiesData);
 };
+
+// const getItem = async (id) => {
+//   const fetchArticle = await fetch(itemURL(id));
+//   if (!fetchArticle.ok) return;
+
+//   return await fetchArticle.json();
+// };
+
+// const getItems = (itemIds) => {
+//   const itemPromises = itemIds.map(getItem);
+
+//   return Promise.all(itemPromises);
+// };
+
+// Countryinitials
