@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Form from './Form';
 import { StHeader } from './style/style-header';
 
-function Header({ setArrCities }) {
+function Header({ setCityNames }) {
   let [input, setInput] = useState('');
   const regex = /,/g;
 
@@ -19,7 +19,7 @@ function Header({ setArrCities }) {
       {input.match(regex) !== null && input.match(regex).length > 9 && (
         <p className="error"> '10 cities is maximum!' </p>
       )}
-      <Form setArrCities={setArrCities} input={input} setInput={setInput} />
+      <Form setCityNames={setCityNames} input={input} setInput={setInput} />
     </StHeader>
   );
 }

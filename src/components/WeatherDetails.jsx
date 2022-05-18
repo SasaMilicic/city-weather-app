@@ -51,10 +51,10 @@ const renderCity = (city, flag) => {
   );
 };
 
-function WeatherDetails({ cities, flags }) {
+function WeatherDetails({ cityWeathers, flags }) {
   return (
     <StWeatherDetails>
-      {cities.map((city) => {
+      {cityWeathers.map((city) => {
         if (city.error) return;
 
         if (flags.length > 0) {

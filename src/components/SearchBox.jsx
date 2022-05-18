@@ -2,16 +2,16 @@ import React from 'react';
 import { ReactComponent as CloseBtn } from '../svg/closeIcon.svg';
 import { StSearchBox } from './style/style-search-box';
 
-function SearchBox({ cities, setCities }) {
+function SearchBox({ cityWeathers, setCityWeathers }) {
   const handleArticle = (id) => {
-    setCities((cities) => cities.filter((el) => el.id !== id));
+    setCityWeathers((cities) => cities.filter((city) => city.id !== id));
   };
 
   return (
     <StSearchBox>
       <ol>
         <h2>Search box</h2>
-        {cities.map((city) => {
+        {cityWeathers.map((city) => {
           const { id, name, error } = city;
           return (
             <li key={id}>

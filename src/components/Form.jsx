@@ -1,9 +1,9 @@
 import { StForm } from './style/style-form';
 
-function Form({ setArrCities, input, setInput }) {
+function Form({ setCityNames, input, setInput }) {
   const onSubmit = (e) => {
     e.preventDefault();
-    setArrCities(input.split(','));
+    setCityNames(input.split(','));
     setInput('');
   };
 

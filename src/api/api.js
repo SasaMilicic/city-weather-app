@@ -1,13 +1,3 @@
-const getFlags = async (arrCities, Sflags) => {
-  const flags = await Promise.all(
-    arrCities.map(async (city) => {
-      const fetchCityWeather = await fetch(FLAGS_URL(city));
-      return fetchCityWeather.url;
-    })
-  );
-  Sflags(flags);
-};
-
 const FLAGS_URL = (countryInitial) => {
   return `https://countryflagsapi.com/svg/${countryInitial}`;
 };
@@ -18,6 +8,19 @@ const WEATHER_URL = (el) => {
 
 const getRandomInteger = () => Math.floor(100000 + Math.random() * 900000);
 
+const getFlag = async (countryInitial) => {
+  const flag = await fetch(FLAGS_URL(countryInitial));
+  if (!flag.ok) return;
+
+  return flag.url;
+};
+
+const getFlags = (countryInitials) => {
+  const flagsPromises = countryInitials.map(getFlag);
+
+  return Promise.all(flagsPromises);
+};
+
 const getCountryInitials = (countries) =>
   countries.map((el) => {
     if (el.error) return;
@@ -25,7 +28,7 @@ const getCountryInitials = (countries) =>
     return el.sys.country;
   });
 
-const getCityWeather = async (city) => {
+const getWeather = async (city) => {
   const weather = await fetch(WEATHER_URL(city));
   if (!weather.ok) {
     return {
@@ -37,29 +40,24 @@ const getCityWeather = async (city) => {
   return await weather.json();
 };
 
-export const getCitiesWeather = async (arrCities, setArr, setFlags) => {
-  if (arrCities.length > 10) arrCities = arrCities.slice(0, 10);
+const getAllWeathers = (cities) => {
+  const cityPromises = cities.map(getWeather);
 
-  const arrCitiesData = await Promise.all(
-    arrCities.map(async (city) => getCityWeather(city))
-  );
-
-  const countryInitials = getCountryInitials(arrCitiesData);
-  getFlags(countryInitials, setFlags);
-  setArr(arrCitiesData);
+  return Promise.all(cityPromises);
 };
 
-// const getItem = async (id) => {
-//   const fetchArticle = await fetch(itemURL(id));
-//   if (!fetchArticle.ok) return;
+export const getWeathersAndFlags = async (
+  cityNames,
+  setCitiesState,
+  setFlagsState
+) => {
+  if (cityNames.length > 10) cityNames = cityNames.slice(0, 10);
 
-//   return await fetchArticle.json();
-// };
+  const citiesWeather = await getAllWeathers(cityNames);
+  setCitiesState(citiesWeather);
 
-// const getItems = (itemIds) => {
-//   const itemPromises = itemIds.map(getItem);
+  const countryInitials = getCountryInitials(citiesWeather);
 
-//   return Promise.all(itemPromises);
-// };
-
-// Countryinitials
+  const countryFlags = await getFlags(countryInitials);
+  setFlagsState(countryFlags);
+};
