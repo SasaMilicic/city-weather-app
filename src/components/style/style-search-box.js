@@ -6,6 +6,9 @@ export const StSearchBox = styled.aside`
   width: 18vw;
   min-width: 250px;
   height: 500px;
+  @media (max-width: 800px) {
+    display: none;
+  }
 
   ol {
     padding-right: 10px;

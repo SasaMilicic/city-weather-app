@@ -18,4 +18,8 @@ export const StHeader = styled.div`
     padding: 5px 10px;
     border-radius: 20px;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;

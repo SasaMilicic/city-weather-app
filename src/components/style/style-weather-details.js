@@ -11,6 +11,17 @@ export const StWeatherDetails = styled.div`
   width: 100%;
   padding: 5px;
 
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 550px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   p {
     display: flex;
     align-items: center;

@@ -16,6 +16,10 @@ export const StApp = styled.div`
     gap: 10px;
     justify-content: space-between;
     padding: 10px;
+
+    /* @media (max-width: 800px) {
+      flex-direction: column;
+    } */
   }
 `;
 
